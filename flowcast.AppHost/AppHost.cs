@@ -2,6 +2,10 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis("cache");
 
+var postgres = builder.AddPostgres("postgres")
+    .WithPgAdmin()
+    .AddDatabase("postgresDb");
+
 var apiService = builder.AddProject<Projects.flowcast_ApiService>("apiservice")
     .WithHttpHealthCheck("/health");
 
