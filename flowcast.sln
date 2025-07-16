@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.AppHost", "flowcast.AppHost\flowcast.AppHost.csproj", "{75419864-F425-4163-A1B5-C729900BCD14}"
 EndProject
@@ -11,6 +11,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.Web", "flowcast.Web\flowcast.Web.csproj", "{184DB3B8-B63D-814F-7358-B27DEF5CA148}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.Tests", "flowcast.Tests\flowcast.Tests.csproj", "{7D7B4E9B-E74D-C8DA-85B7-77DF0D89BFAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.Domain", "flowcast.Domain\flowcast.Domain.csproj", "{14658A0C-E568-4321-8F0E-5B0DD817D1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.Application", "flowcast.Application\flowcast.Application.csproj", "{E63BD44E-7911-4E06-9F1A-22F5B74F824B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "flowcast.Persistance", "flowcast.Persistance\flowcast.Persistance.csproj", "{281ABFCD-3011-43A1-873C-8060336C1235}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +44,18 @@ Global
 		{7D7B4E9B-E74D-C8DA-85B7-77DF0D89BFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D7B4E9B-E74D-C8DA-85B7-77DF0D89BFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D7B4E9B-E74D-C8DA-85B7-77DF0D89BFAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14658A0C-E568-4321-8F0E-5B0DD817D1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14658A0C-E568-4321-8F0E-5B0DD817D1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14658A0C-E568-4321-8F0E-5B0DD817D1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14658A0C-E568-4321-8F0E-5B0DD817D1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E63BD44E-7911-4E06-9F1A-22F5B74F824B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E63BD44E-7911-4E06-9F1A-22F5B74F824B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E63BD44E-7911-4E06-9F1A-22F5B74F824B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E63BD44E-7911-4E06-9F1A-22F5B74F824B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281ABFCD-3011-43A1-873C-8060336C1235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281ABFCD-3011-43A1-873C-8060336C1235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281ABFCD-3011-43A1-873C-8060336C1235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281ABFCD-3011-43A1-873C-8060336C1235}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
