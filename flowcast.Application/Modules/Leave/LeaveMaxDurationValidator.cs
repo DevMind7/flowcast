@@ -21,7 +21,7 @@ namespace flowcast.Application.Modules.Leave
             return Task.FromResult(Validate(parameters));
         }
 
-        private static WorkflowResult Validate(IReadOnlyDictionary<string, string> p)
+        public static WorkflowResult Validate(IReadOnlyDictionary<string, string> p)
         {
             if (!p.TryGetValue("startDate", out var startStr) || !DateTime.TryParse(startStr, out var start))
                 return Error("startDate");
@@ -37,7 +37,7 @@ namespace flowcast.Application.Modules.Leave
             return new WorkflowResult(true, $"[LeaveMaxDurationValidator] Durée conforme ({requested} jours demandés).");
         }
 
-        private static WorkflowResult Error(string field)
+        public static WorkflowResult Error(string field)
             => new(false, $"[LeaveMaxDurationValidator] Paramètre invalide ou manquant : '{field}'");
     }
 }

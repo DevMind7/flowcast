@@ -18,7 +18,7 @@ namespace flowcast.Application.Modules.Leave
             return Task.FromResult(Validate(parameters));
         }
 
-        private static WorkflowResult Validate(IReadOnlyDictionary<string, string> p)
+        public static WorkflowResult Validate(IReadOnlyDictionary<string, string> p)
         {
             // Parsing des paramètres
             if (!p.TryGetValue("startDate", out var startStr) || !DateTime.TryParse(startStr, out var start))
@@ -41,7 +41,7 @@ namespace flowcast.Application.Modules.Leave
             return new WorkflowResult(true, $"[LeaveValidator] Demande valide : {requested} jour(s), solde suffisant.");
         }
 
-        private static WorkflowResult Error(string field)
+        public static WorkflowResult Error(string field)
             => new(false, $"[LeaveValidator] Paramètre manquant ou invalide : '{field}'");
     }
 }
