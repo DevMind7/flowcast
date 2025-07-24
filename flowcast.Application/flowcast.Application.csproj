@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\flowcast.Domain\flowcast.Domain.csproj" />
+    <ProjectReference Include="..\flowcast.Persistance\flowcast.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

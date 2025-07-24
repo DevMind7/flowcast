@@ -1,0 +1,58 @@
+﻿@page "/workflows"
+@inject HttpApiClient ApiClient
+
+<h3>Liste des Workflows</h3>
+
+@if (workflows == null)
+{
+    <p><em>Chargement...</em></p>
+}
+else if (!workflows.Any())
+{
+    <p>Aucun workflow trouvé.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var workflow in workflows)
+        {
+            <li class="list-group-item mb-3">
+                <h5>@workflow.Name (ID: @workflow.Id)</h5>
+                <p><strong>Créé par :</strong> @workflow.CreatorId</p>
+
+                <h6>Paramètres :</h6>
+                <ul>
+                    @foreach (var param in workflow.ParameterDefinitions)
+                    {
+                        <li>@param.DisplayName (@param.Name) - Type: @param.Type</li>
+                    }
+                </ul>
+
+                <h6>Étapes :</h6>
+                <ol>
+                    @foreach (var step in workflow.Steps.OrderBy(s => s.Order))
+                    {
+                        <li>
+                            <strong>@step.StepName</strong>
+                            <ul>
+                                @foreach (var rule in step.Rules)
+                                {
+                                    <li>Module: <code>@rule.Key</code> - Valeur: @rule.Value</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ol>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<HttpApiClient.Workflow>? workflows;
+
+    protected override async Task OnInitializedAsync()
+    {
+        workflows = await ApiClient.GetAllWorkflowsAsync();
+    }
+}

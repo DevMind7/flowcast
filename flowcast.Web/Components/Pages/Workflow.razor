@@ -1,0 +1,111 @@
+﻿@page "/workflow"
+@using flowcast.ApiService.DTO.Workflow
+@using flowcast.Web.DTO.Workflow
+@inject HttpApiClient apiClient
+@rendermode InteractiveServer
+
+<h3>Créer un nouveau workflow</h3>
+
+<EditForm Model="workflow" OnValidSubmit="CreateWorkflowAsync" formname="createWorkflowForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="workflow.Name" placeholder="Nom du workflow" class="form-control" />
+    <br />
+
+    <h5>Paramètres</h5>
+    @foreach (var param in workflow.ParameterDefinitions)
+    {
+        <div class="mb-2">
+            <InputText @bind-Value="param.Name" placeholder="Nom interne" class="form-control" />
+            <InputText @bind-Value="param.DisplayName" placeholder="Nom affiché" class="form-control" />
+            <InputSelect @bind-Value="param.Type" class="form-control">
+                @foreach (var type in Enum.GetValues(typeof(ParameterType)).Cast<ParameterType>())
+                {
+                    <option value="@type">@type</option>
+                }
+            </InputSelect>
+        </div>
+    }
+    <button type="button" @onclick="AddParameter" class="btn btn-secondary">Ajouter un paramètre</button>
+
+    <h5>Étapes</h5>
+    @foreach (var step in workflow.Steps)
+    {
+        <div class="mb-3">
+            <InputText @bind-Value="step.StepName" placeholder="Nom de l'étape" class="form-control" />
+            <InputNumber @bind-Value="step.Order" placeholder="Ordre" class="form-control" />
+            @foreach (var rule in step.Rules)
+            {
+                <div class="mb-2">
+                    <InputSelect @bind-Value="rule.Key" class="form-control" @onchange="() => UpdateRuleValue(rule)">
+                        <option value="">-- Choisir un module --</option>
+                        @foreach (var module in modulesList)
+                        {
+                            <option value="@module.Name">@module.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+            }
+            <button type="button" @onclick="() => AddRule(step)" class="btn btn-secondary btn-sm">Ajouter une règle</button>
+        </div>
+    }
+    <button type="button" @onclick="AddStep" class="btn btn-secondary">Ajouter une étape</button>
+
+    <br /><br />
+    <button type="submit" class="btn btn-primary">Créer</button>
+</EditForm>
+
+@code {
+    private List<ModuleDto> modulesList = new();
+
+    private CreateWorkflowDTO workflow = new()
+    {
+        CreatorId = 1, // TODO: remplacer dynamiquement
+        ParameterDefinitions = new List<CreateParameterDto>(),
+        Steps = new List<CreateStepDto>()
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        modulesList = await apiClient.GetAllModulesAsync();
+    }
+
+    private void UpdateRuleValue(CreateRuleDto rule)
+    {
+        rule.Value = rule.Key;
+    }
+
+    private async Task CreateWorkflowAsync  ()
+    {
+        foreach (var step in workflow.Steps)
+        {
+            foreach (var rule in step.Rules)
+            {
+                if (string.IsNullOrWhiteSpace(rule.Value))
+                {
+                    rule.Value = rule.Key;
+                }
+            }
+        }
+
+        var response = await apiClient.CreateWorkflowAsync(workflow);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            // Affiche le message d’erreur reçu pour debug
+            throw new ApplicationException($"Erreur API: {response.StatusCode} - {content}");
+        }
+
+    }
+
+    private void AddParameter() =>
+        workflow.ParameterDefinitions.Add(new());
+
+    private void AddStep() =>
+        workflow.Steps.Add(new CreateStepDto { Rules = new List<CreateRuleDto>() });
+
+    private void AddRule(CreateStepDto step) =>
+        step.Rules.Add(new());
+}
