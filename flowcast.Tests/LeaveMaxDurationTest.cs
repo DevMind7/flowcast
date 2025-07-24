@@ -39,7 +39,7 @@ namespace flowcast.Tests
             var result = LeaveMaxDurationValidator.Validate(parameters);
 
             Assert.False(result.Success);
-            Assert.Contains("dépasse la limite autorisée", result.Message);
+            Assert.Contains("dépasse la limite autorisée !", result.Message);
         }
 
     }
