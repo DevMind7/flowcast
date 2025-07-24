@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace flowcast.Domain.Interfaces
 {
-    public interface IRule
+    public interface IRuleRepository
     {
         Task<List<Rule>> GetByStepIdAsync(int stepId);
         Task AddAsync(Rule rule);

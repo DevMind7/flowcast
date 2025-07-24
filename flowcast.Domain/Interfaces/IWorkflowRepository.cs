@@ -9,8 +9,8 @@ namespace flowcast.Domain.Interfaces
 {
     public interface IWorkflowRepository
     {
-        Task<Workflow?> GetByIdAsync(int id);
-        Task<List<Workflow>> GetAllAsync();
-        Task AddAsync(Workflow workflow);
+        Task<Workflow?> GetWorkflowByIdAsync(int id);
+        Task<List<Workflow>> GetAllWorkflowsAsync();
+        Task<Workflow> AddWorkflowAsync(Workflow workflow);
     }
 }
